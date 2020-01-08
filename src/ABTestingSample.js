@@ -25,7 +25,7 @@ const calcModuleTwoWeight = id => {
   return Number(id) > 5 ? 1 : 0.5;
 };
 
-module.exports.lala = someId => {
+module.exports.executeTest = someId => {
   var moduleSelectionTest = ABTesting.createTest("firstTest", [
     { name: "module1", weight: calcModuleOneWeight(someId) },
     { name: "module2", weight: calcModuleTwoWeight(someId) }
