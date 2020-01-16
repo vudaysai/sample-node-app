@@ -2,7 +2,7 @@ const { Engine, Rule } = require("json-rules-engine");
 
 const apiClient = require("./mock-api-client");
 
-module.exports.checRule = async data => {
+module.exports.checRule = async facts => {
   const engine = new Engine();
 
   const microsoftRule = {
@@ -45,8 +45,6 @@ module.exports.checRule = async data => {
     });
   });
 
-  const facts = { accountId: "lincoln" };
-
   engine
     .on("success", (event, almanac, ruleResult) => {
       console.log("eng succ", ruleResult.conditions.all);
@@ -55,15 +53,18 @@ module.exports.checRule = async data => {
       console.log("eng fail", ruleResult.conditions.all);
     });
 
-  await engine
+  var msg = await engine
     .run(facts)
     .then(results => {
-      if (!results.events.length) return;
-      console.log(
+      if (!results.events.length) return "rule failed";
+
+      return (
         facts.accountId +
-          " is a " +
-          results.events.map(event => event.params.message)
+        " is a " +
+        results.events.map(event => event.params.message)
       );
     })
     .catch(err => console.log(err.stack));
+
+  return msg;
 };

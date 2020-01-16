@@ -17,6 +17,7 @@ router.post("/dynamicFacts", async (req, res) => {
   console.log(req.body, "body");
   try {
     var data = await dynamicFacts.checRule(req.body);
+    console.log(data);
     res.json({ message: data });
   } catch (err) {
     res.status(500).json({ message: err.message });
