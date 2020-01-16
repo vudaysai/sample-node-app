@@ -53,14 +53,9 @@ module.exports.checRule = async data => {
       console.log("eng fail", event);
     });
 
-  var lala = await engine.run(data).then(results => {
-    // console.log(results, "results");
+  var message = await engine.run(data).then(results => {
     return results.events.map(x => x.params.message);
   });
 
-  console.log("---------------");
-  console.log("---------------");
-
-  console.log(lala, "lala");
-  return lala.join(",");
+  return message.join(",");
 };
